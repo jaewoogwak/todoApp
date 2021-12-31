@@ -18,12 +18,25 @@ export default function App() {
   // 2개의 setState는 반대의 boolean값을 인자로 넘겨줌
   const [working, setWorking] = useState(true);
   const [text, setText] = useState("");
+  const [toDos, setToDos] = useState({});
   const travel = () => setWorking(false);
   const work = () => setWorking(true);
   // RN에서 onChangeText 속성을 사용함.(not 'onChange')
   const onChangeText = (payload) => {
     setText(payload);
   };
+  const addToDo = () => {
+    if (text === "") {
+      return;
+    }
+    //save to do
+    const newToDos = Object.assign({}, toDos, {
+      [Date.now()]: { text, work: working },
+    });
+    setToDos(newToDos);
+    setText("");
+  };
+  console.log(toDos);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -54,10 +67,12 @@ export default function App() {
         <View>
           <TextInput
             value={text}
+            onSubmitEditing={addToDo}
             onChangeText={onChangeText}
+            returnKeyType="done"
             style={styles.input}
             placeholder={working ? "Add a to do" : "Where do you want to go?"}
-            placeholderTextColor={theme.black}
+            placeholderTextColor={theme.inputPlaceholder}
           />
         </View>
       </View>
