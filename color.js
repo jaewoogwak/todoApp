@@ -4,6 +4,7 @@ const theme = {
   white: "white",
   input: "#eceeef",
   inputPlaceholder: "#adb4b9",
+  toDoBgrd: "#dee1e3",
 };
 
 export default theme;
